@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+    service:
+        build: .
+        command: "gunicorn main:app --bind 0.0.0.0:8000"
+        ports:
+          - "8000:8000"
+    nginx:
+        image: nginx:1.21.3
+        ports:
+          - "8080:8080"
+        volumes:
+          - ./nginx.conf:/nginx.conf
+          - ./1.jpg:/1.jpg
+        depends_on:
+            - service
