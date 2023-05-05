@@ -9,6 +9,7 @@ class Profile(models.Model):
 
     class Meta:
         db_table = 'profiles'
+        verbose_name = 'Profile'
 
 class Product(models.Model):
     name = models.TextField()
@@ -19,6 +20,7 @@ class Product(models.Model):
 
     class Meta:
         db_table = 'products'
+        verbose_name = 'Product'
 
 class Order(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
@@ -28,6 +30,7 @@ class Order(models.Model):
 
     class Meta:
         db_table = 'orders'
+        verbose_name = 'Order'
 
 
 class FavoriteProducts(models.Model):
@@ -37,3 +40,4 @@ class FavoriteProducts(models.Model):
 
     class Meta:
         db_table = 'favorite_products'
+        verbose_name = 'FavoriteProduct'
