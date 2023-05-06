@@ -3,9 +3,12 @@ import random
 from uuid import uuid4
 
 from django.http import JsonResponse
+from django.shortcuts import render
 
 from django.views.decorators.http import require_http_methods
 
+def main_view(request):
+    return render(request, 'main_template.html', {})
 
 # region Profile
 

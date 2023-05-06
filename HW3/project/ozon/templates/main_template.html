@@ -1,0 +1,5 @@
+{% block content %}
+  <button onclick="window.location.href='{{ request.scheme }}://{{ request.get_host }}:8080/store/profile'">Профиль</button>
+  <button onclick="window.location.href='{{ request.scheme }}://{{ request.get_host }}:8080/store/products'">Продукты</button>
+  <button onclick="window.location.href='{{ request.scheme }}://{{ request.get_host }}:8080/store/orders'">Заказы</button>
+{% endblock %}

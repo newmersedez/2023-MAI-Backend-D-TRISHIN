@@ -9,35 +9,31 @@ class Profile(models.Model):
 
     class Meta:
         db_table = 'profiles'
-        verbose_name = 'Profile'
 
 class Product(models.Model):
-    name = models.TextField()
-    description = models.TextField()
-    price = models.IntegerField()
-    created_date = models.DateTimeField(default=datetime.datetime.utcnow())
-    created_by = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    name = models.TextField(verbose_name='Название')
+    description = models.TextField(verbose_name='Описание')
+    price = models.IntegerField(verbose_name='Цена')
+    created_date = models.DateTimeField(default=datetime.datetime.utcnow(), verbose_name='Дата создания')
+    created_by = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Создатель')
 
     class Meta:
         db_table = 'products'
-        verbose_name = 'Product'
 
 class Order(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    destination = models.TextField()
-    created_date = models.DateTimeField(default=datetime.datetime.utcnow())
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Связанный продукт')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Связанный пользователь')
+    destination = models.TextField(verbose_name='Адрес доставки')
+    created_date = models.DateTimeField(default=datetime.datetime.utcnow(), verbose_name='Дата создания')
 
     class Meta:
         db_table = 'orders'
-        verbose_name = 'Order'
 
 
 class FavoriteProducts(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    created_date = models.DateTimeField(default=datetime.datetime.utcnow())
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='Связанный продукт')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Связанный пользователь')
+    created_date = models.DateTimeField(default=datetime.datetime.utcnow(), verbose_name='Дата создания')
 
     class Meta:
         db_table = 'favorite_products'
-        verbose_name = 'FavoriteProduct'

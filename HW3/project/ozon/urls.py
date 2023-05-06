@@ -20,6 +20,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('', views.main_view, name='main_view'),
     path('profile', views.get_current_profile_details),
     path('profile', views.create_profile, name='profile'),
 
