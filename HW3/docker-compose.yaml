@@ -1,6 +1,24 @@
 version: "3.9"
 
 services:
+    db:
+        image: postgres:14.7
+        environment:
+            POSTGRES_DB: ozon
+            POSTGRES_USER: ozon_user
+            POSTGRES_PASSWORD: 12345
+            PGDATA: /var/lib/postgresql/data
+        healthcheck:
+            test: [ "CMD-SHELL", "echo 'SELECT 1;' | psql -U ozon_user -d ozon" ]
+            interval: 3s
+            timeout: 5s
+        restart: unless-stopped
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./pgdata:/var/lib/postgresql/data
+        networks:
+            - db
     ozon:
         build: ./project
         command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
@@ -16,24 +34,6 @@ services:
             interval: 3s
             timeout: 10s
         restart: unless-stopped
-    db:
-        image: postgres:14.7
-        environment:
-            POSTGRES_DB: ozon
-            POSTGRES_USER: ozon_user
-            POSTGRES_PASSWORD: 12345
-            PGDATA: /var/lib/postgresql/data
-        healthcheck:
-            test: ["CMD-SHELL", "echo 'SELECT 1;' | psql -U ozon_user -d ozon"]
-            interval: 3s
-            timeout: 5s
-        restart: unless-stopped
-        ports:
-            - "5432:5432"
-        volumes:
-            - ./pgdata:/var/lib/postgresql/data
-        networks:
-            - db
     nginx:
         image: nginx:1.21.3
         ports:
