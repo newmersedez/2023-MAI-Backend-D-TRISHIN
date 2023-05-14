@@ -10,6 +10,11 @@ class ProfileList(generics.ListCreateAPIView):
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
+
+        query = request.query_params.get('email')
+        if query:
+            queryset = queryset.filter(email__icontains=query)
+
         serializer = ProfileDetailsSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -73,43 +78,3 @@ class OrderDetails(generics.RetrieveUpdateDestroyAPIView):
         return Response(serializer.data)
 
 # endregion
-
-# class ProfileDetails(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Profile.objects.all()
-#     serializer_class = ProfileSerializer
-#
-#     def get(self, request, *args, **kwargs):
-#         pass
-#
-#     def post(self, request, *args, **kwargs):
-#         pass
-
-
-# class ItemList(generics.ListCreateAPIView):
-#     queryset = Item.objects.all()
-#     serializer_class = ItemSerializer
-#
-#
-# class ItemDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Item.objects.all()
-#     serializer_class = ItemSerializer
-#
-#
-# class CharacterList(generics.ListCreateAPIView):
-#     queryset = Character.objects.all()
-#     serializer_class = CharacterSerializer
-#
-#
-# class CharacterDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Character.objects.all()
-#     serializer_class = CharacterSerializer
-#
-#
-# class ProfileList(generics.ListCreateAPIView):
-#     queryset = Profile.objects.all()
-#     serializer_class = ProfileSerializer
-#
-#
-# class ProfileDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Profile.objects.all()
-#     serializer_class = ProfileSerializer

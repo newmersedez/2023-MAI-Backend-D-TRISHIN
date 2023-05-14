@@ -38,6 +38,7 @@ urlpatterns = [
     # path('orders/create/', views.create_order, name='create_order'),
 
     path('profiles/', views.ProfileList.as_view(), name='profiles-list'),
+    # path('profiles?<str:email>/', views.ProfileList.as_view(), name='profiles-list'),
     path('profiles/<int:profile_id>/', views.ProfileDetails.as_view(), name='profile-detail'),
 
     path('products/', views.ProductList.as_view(), name='product-list'),

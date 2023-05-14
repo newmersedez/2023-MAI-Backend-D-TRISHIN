@@ -84,6 +84,7 @@ DATABASES = {
         'USER': 'ozon_user',
         'PASSWORD': '12345',
         'HOST': 'hw57-db-1',
+        # 'HOST': 'localhost',
         'PORT': '5432',
     }
 }

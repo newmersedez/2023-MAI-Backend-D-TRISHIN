@@ -63,16 +63,3 @@ class OrderUpdateSerializer(serializers.ModelSerializer):
         fields = ('shipping_address',)
 
 # endregion
-
-# class ProductSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Product
-#         fields = ('id', 'name', 'description', 'price')
-#
-# class OrderSerializer(serializers.ModelSerializer):
-#     profile = ProfileSerializer()
-#     product = ProductSerializer()
-#
-#     class Meta:
-#         model = Order
-#         fields = ('id', 'profile_id', 'product_id', 'created_date', 'destination')
