@@ -22,7 +22,7 @@ from . import views
 urlpatterns = [
     path('', views.main_view, name='main_view'),
     path('profiles/', views.get_profiles, name='all_profiles'),
-    path('profiles/<int:profile_id>/', views.get_profile, name='specific_profile'),
+    path('profile/<int:profile_id>/', views.get_profile, name='specific_profile'),
     path('profiles/', views.create_profile, name='create_profile'),
 
     path('products/', views.get_products, name='all_products'),

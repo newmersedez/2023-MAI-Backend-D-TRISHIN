@@ -23,9 +23,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-xf7gnbh1u4dic3f$b27m)h7s@4l*&37ek(by8vt)41jmzqh(dz'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
+
+CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SAMESITE = 'Lax'
 
 # Application definition
 
@@ -36,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ozon',
+    'app',
     'rest_framework'
 ]
 
@@ -77,8 +80,8 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ozon',
-        'USER': 'ozon_user',
+        'NAME': 'test',
+        'USER': 'postgres',
         'PASSWORD': '12345',
         'HOST': 'localhost',
         'PORT': '5432',

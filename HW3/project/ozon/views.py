@@ -9,6 +9,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from django.views.decorators.http import require_http_methods
+from rest_framework.status import HTTP_404_NOT_FOUND
 
 from .models import Profile, Product, Order
 
@@ -21,8 +22,7 @@ def main_view(request):
 
 @require_http_methods(["GET"])
 def get_profiles(request):
-    query = request.GET.get('email', '')
-    profiles = Profile.objects.all().filter(email__icontains=query).values('id', 'email', 'registration_date')
+    profiles = Profile.objects.all().values('id', 'email', 'registration_date')
     return JsonResponse(list(profiles), safe=False)
 
 @require_http_methods(["GET"])
@@ -30,7 +30,7 @@ def get_profile(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
 
     if profile is None:
-        return HttpResponseNotFound('Профиль не найден')
+        return JsonResponse({'message': 'Профиль не найден'}, status=HTTP_404_NOT_FOUND)
 
     response = {
         'id': profile.id,
