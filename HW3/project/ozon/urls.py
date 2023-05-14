@@ -15,19 +15,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.urls import path
+from django.urls import path, include
 
 from . import views
 
 urlpatterns = [
     path('', views.main_view, name='main_view'),
-    path('profile', views.get_current_profile_details),
-    path('profile', views.create_profile, name='profile'),
+    path('profiles/<str:query>/', views.get_profiles, name='all_profiles'),
+    path('profiles/<int:profile_id>/', views.get_profile, name='specific_profile'),
+    path('profiles/create/', views.create_profile, name='create_profile'),
 
-    path('products', views.get_products),
-    path('products/', views.create_product, name='products'),
-    path('products/<int:product_id>', views.get_product, name='products'),
+    path('products/', views.get_products, name='all_products'),
+    path('products/create/', views.create_product, name='create_product'),
+    path('products/<int:product_id>/', views.get_product, name='specific_product'),
 
-    path('orders', views.get_orders),
-    path('orders', views.create_order, name='orders'),
+    path('orders/', views.get_orders, name='all_orders'),
+    path('orders/create/', views.create_order, name='create_order'),
 ]

@@ -1,31 +1,55 @@
-import datetime
+import json
 import random
+from datetime import datetime
 from uuid import uuid4
 
-from django.http import JsonResponse
+import bcrypt
+from django.http import JsonResponse, HttpResponseNotFound
 from django.shortcuts import render
 
 from django.views.decorators.http import require_http_methods
 
+from .models import Profile, Product, Order
+
+
 def main_view(request):
     return render(request, 'main_template.html', {})
+
 
 # region Profile
 
 @require_http_methods(["GET"])
-def get_current_profile_details(request):
-    profile = {
-        'id': uuid4(),
-        'email': 'ozon671games@mail.ru',
-        'registration_date': datetime.datetime.utcnow(),
-        'money': '10$'
+def get_profiles(request, query):
+    profiles = Profile.objects.all().filter(email__icontains='query').values('id', 'email', 'registration_date')
+    return JsonResponse(list(profiles), safe=False)
+
+@require_http_methods(["GET"])
+def get_profile(request, profile_id):
+    profile = Profile.objects.get(id=profile_id)
+
+    if profile is None:
+        return HttpResponseNotFound('Профиль не найден')
+
+    response = {
+        'id': profile.id,
+        'email': profile.email,
+        'registration_date': profile.registration_date
     }
-    return JsonResponse(profile)
+
+    return JsonResponse(response, safe=False)
 
 @require_http_methods(["POST"])
 def create_profile(request):
-    user_id = uuid4()
-    return JsonResponse(user_id)
+    data = json.loads(request.body)
+    email = data.get('email'),
+    password = data.get('password')
+
+    salt = bcrypt.gensalt()
+    password_hash = bcrypt.hashpw(password, salt)
+
+    profile = Profile.objects.create(email=email, password_hash=password_hash, registration_date=datetime.utcnow())
+
+    return JsonResponse(profile.id, safe=False)
 
 # endregion
 
