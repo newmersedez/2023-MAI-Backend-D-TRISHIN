@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'test',
-        'USER': 'postgres',
+        'NAME': 'ozon',
+        'USER': 'ozon_user',
         'PASSWORD': '12345',
-        'HOST': 'localhost',
+        'HOST': 'hw57-db-1',
         'PORT': '5432',
     }
 }
